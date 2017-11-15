@@ -39,7 +39,7 @@ def work():
             umid FLOAT NOT NULL,
             lum BOOLEAN NOT NULL);
     """)
-
+	    
     cursor.execute("""
     CREATE TABLE Equip(
             equip_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -164,6 +164,19 @@ def work():
             descricao_acao CHAR(255) NOT NULL,
             autor INTEGER NOT NULL REFERENCES User_Sys(user_id));
     """)
+
+#Extensão---Preferencia ambiental do usuario
+    cursor.execute("""
+    CREATE TABLE Preferencia_Ambiental(
+            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+            user_id CHAR(4) NOT NULL REFERENCES User_Lab(user_id),
+            nome CHAR(255) NOT NULL REFERENCES User_Lab(nome),
+	        lab_id INTEGER NOT NULL REFERENCES Lab(lab_id),
+            laboratorio CHAR(255) NOT NULL REFERENCES Lab(nome),
+            temp_min FLOAT NOT NULL,
+            temp_max FLOAT NOT NULL;
+   """)
+#---Fim Extensão
 
     conn.commit()
     conn.close()
